@@ -1,4 +1,4 @@
-package com.project.backend.entity;
+package com.project.backend.entities;
 
 import jakarta.persistence.*;
 import java.io.Serializable;
