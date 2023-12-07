@@ -12,14 +12,16 @@ import org.springframework.context.annotation.Profile;
 public class TestConfig implements CommandLineRunner {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository repository;
 
     @Override //Acts like a main method and runs everything inside it when the program is initialized
     public void run(String... args) throws Exception {
 
         User u = new User("Felipe", "felipe@gmail.com", "999841588", "root");
+        User u1 = new User("Cleiton", "cleiton@gmail.com", "996056632", "root");
 
-        userRepository.save(u);
+        repository.save(u);
+        repository.save(u1);
 
     }
 }
