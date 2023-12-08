@@ -1,8 +1,11 @@
 package com.project.backend.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "tb_product")
@@ -22,6 +25,9 @@ public class Product implements Serializable {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @OneToMany(mappedBy = "id.product")
+    private final Set<OrderItem> orders = new HashSet<>();
+
     //Builders
     public Product(){}
 
@@ -29,7 +35,7 @@ public class Product implements Serializable {
         setName(name);
         setDescription(description);
         setPrice(price);
-        setImgUrl(getImgUrl());
+        setImgUrl(imgUrl);
         setCategory(category);
     }
 
@@ -48,6 +54,16 @@ public class Product implements Serializable {
     }
 
     //Accessors
+    @JsonIgnore
+    public Set<Order> getOrders(){
+        Set<Order> set = new HashSet<>();
+
+        for (OrderItem oi : orders){
+            set.add(oi.getOrder());
+        }
+        return set;
+    }
+
     public Long getId(){
         return id;
     }
