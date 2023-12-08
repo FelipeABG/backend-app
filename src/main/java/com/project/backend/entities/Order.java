@@ -23,8 +23,9 @@ public class Order implements Serializable {
     //Builders
     public Order(){}
 
-    public Order(Instant moment){
-
+    public Order(Instant moment, User client){
+        setMoment(moment);
+        setClient(client);
     }
 
     //Methods
@@ -52,5 +53,13 @@ public class Order implements Serializable {
 
     public void setMoment(Instant moment) {
         this.moment = moment;
+    }
+
+    public User getClient() {
+        return client;
+    }
+
+    public void setClient(User client) {
+        this.client = client;
     }
 }
