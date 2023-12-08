@@ -1,5 +1,6 @@
 package com.project.backend.entities;
 
+import com.project.backend.entities.enums.OrderStatus;
 import jakarta.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
@@ -15,6 +16,7 @@ public class Order implements Serializable {
     private Long id;
 
     private Instant moment;
+    private Integer status;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
@@ -23,9 +25,10 @@ public class Order implements Serializable {
     //Builders
     public Order(){}
 
-    public Order(Instant moment, User client){
+    public Order(Instant moment, User client, OrderStatus status){
         setMoment(moment);
         setClient(client);
+        setStatus(status);
     }
 
     //Methods
@@ -61,5 +64,13 @@ public class Order implements Serializable {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public OrderStatus getStatus() {
+        return OrderStatus.valueOf(status);
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status.getCode();
     }
 }
