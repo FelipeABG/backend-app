@@ -25,6 +25,7 @@ public class TestConfig implements CommandLineRunner {
     @Autowired
     private OrderItemRepository OrderItemRepo;
 
+
     @Override //Acts like a main method and runs everything inside it when the program is initialized
     public void run(String... args) throws Exception {
 
@@ -42,6 +43,9 @@ public class TestConfig implements CommandLineRunner {
 
         OrderItem oi1 = new OrderItem(p1, o1, 3, p1.getPrice());
         OrderItem oi2 = new OrderItem(p2, o2, 4, p2.getPrice());
+
+        o1.setPayment(new Payment(Instant.now(), o1));
+        o2.setPayment(new Payment(Instant.now(),o2));
 
         userRepo.saveAll(Arrays.asList(u1, u2));
         orderRepo.saveAll(Arrays.asList(o1,o2));
