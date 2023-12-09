@@ -33,6 +33,10 @@ public class OrderItem implements Serializable {
     }
 
     //Methods
+    public Double getSubTotal(){
+        return getQuantity()* getPrice();
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
