@@ -89,10 +89,6 @@ public class Order implements Serializable {
         this.status = status.getCode();
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
-
     public Payment getPayment() {
         return payment;
     }
