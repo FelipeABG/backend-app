@@ -5,16 +5,13 @@ import com.project.backend.entities.Category;
 import com.project.backend.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/categories")
-public class CategoryResource {
+public class CategoryResource extends Resource{
 
     //Attributes
     @Autowired
@@ -28,6 +25,12 @@ public class CategoryResource {
     @GetMapping("/{id}")
     public ResponseEntity<Category> findById(@PathVariable String id){
         return ResponseEntity.ok().body(service.findById(Long.parseLong(id)));
+    }
+
+    @PostMapping
+    public ResponseEntity<Category> insert(@RequestBody Category category){
+        category = service.insert(category);
+        return ResponseEntity.created(getUri(category)).body(category);
     }
 
 }

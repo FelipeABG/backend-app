@@ -2,6 +2,7 @@ package com.project.backend.services;
 
 import com.project.backend.entities.Order;
 import com.project.backend.repositories.OrderRepository;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -20,5 +21,9 @@ public class OrderService {
 
     public Order findById(Long id){
         return repository.findById(id).get();
+    }
+
+    public Order insert(Order order){
+        return repository.save(order);
     }
 }

@@ -4,15 +4,13 @@ import com.project.backend.entities.Order;
 import com.project.backend.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping(value = "/orders")
-public class OrderResource {
+public class OrderResource extends Resource{
 
     //Attributes
     @Autowired
@@ -29,4 +27,9 @@ public class OrderResource {
         return ResponseEntity.ok().body(service.findById(Long.parseLong(id)));
     }
 
+    @PostMapping
+    public ResponseEntity<Order> insert(@RequestBody Order order){
+        order = service.insert(order);
+        return ResponseEntity.created(getUri(order)).body(order);
+    }
 }
