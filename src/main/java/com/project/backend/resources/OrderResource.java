@@ -23,13 +23,19 @@ public class OrderResource extends Resource{
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Order> findById(@PathVariable String id){
-        return ResponseEntity.ok().body(service.findById(Long.parseLong(id)));
+    public ResponseEntity<Order> findById(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.findById(id));
     }
 
     @PostMapping
     public ResponseEntity<Order> insert(@RequestBody Order order){
         order = service.insert(order);
         return ResponseEntity.created(getUri(order)).body(order);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

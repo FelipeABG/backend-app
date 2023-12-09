@@ -22,14 +22,20 @@ public class ProductResource extends Resource{
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Product> findById(@PathVariable String id){
-        return ResponseEntity.ok().body(service.findById(Long.parseLong(id)));
+    public ResponseEntity<Product> findById(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.findById(id));
     }
 
     @PostMapping
     public ResponseEntity<Product> insert(@RequestBody Product product){
         product = service.insert(product);
         return ResponseEntity.created(getUri(product)).body(product);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

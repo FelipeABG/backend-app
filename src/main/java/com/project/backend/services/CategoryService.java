@@ -25,4 +25,8 @@ public class CategoryService {
     public Category insert(Category category){
         return repository.save(category);
     }
+
+    public void delete(Long id){
+        repository.deleteById(id);
+    }
 }

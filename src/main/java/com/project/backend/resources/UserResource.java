@@ -25,14 +25,20 @@ public class UserResource extends Resource{
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<User> findById(@PathVariable String id){
-        return ResponseEntity.ok().body(service.findById(Long.parseLong(id)));
+    public ResponseEntity<User> findById(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.findById(id));
     }
 
     @PostMapping
     public ResponseEntity<User> insert(@RequestBody User user){
         user = service.insert(user);
         return ResponseEntity.created(getUri(user)).body(user);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }

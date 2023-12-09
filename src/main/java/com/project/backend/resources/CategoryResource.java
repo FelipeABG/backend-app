@@ -23,14 +23,20 @@ public class CategoryResource extends Resource{
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> findById(@PathVariable String id){
-        return ResponseEntity.ok().body(service.findById(Long.parseLong(id)));
+    public ResponseEntity<Category> findById(@PathVariable Long id){
+        return ResponseEntity.ok().body(service.findById(id));
     }
 
     @PostMapping
     public ResponseEntity<Category> insert(@RequestBody Category category){
         category = service.insert(category);
         return ResponseEntity.created(getUri(category)).body(category);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id){
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
