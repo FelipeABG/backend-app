@@ -2,7 +2,12 @@ package com.project.backend.services;
 
 import com.project.backend.entities.Category;
 import com.project.backend.repositories.CategoryRepository;
+import com.project.backend.services.exceptions.DataBaseException;
+import com.project.backend.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -19,7 +24,7 @@ public class CategoryService {
     }
 
     public Category findById(Long id){
-        return repository.findById(id).get();
+        return repository.findById(id).orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Category insert(Category category){
@@ -27,13 +32,26 @@ public class CategoryService {
     }
 
     public void delete(Long id){
-        repository.deleteById(id);
+        try {
+            repository.deleteById(id);
+        }
+        catch (EmptyResultDataAccessException e){
+            throw new ResourceNotFoundException(id);
+        }
+        catch (DataIntegrityViolationException e){
+            throw new DataBaseException(e.getMessage());
+        }
     }
 
     public Category update(Long id, Category category){
-        Category reference = repository.getReferenceById(id);
-        updateData(reference, category);
-        return repository.save(reference);
+        try {
+            Category reference = repository.getReferenceById(id);
+            updateData(reference, category);
+            return repository.save(reference);
+        }
+        catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
     }
 
     //Auxiliary methods
