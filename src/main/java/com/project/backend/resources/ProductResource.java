@@ -38,4 +38,10 @@ public class ProductResource extends Resource{
         return ResponseEntity.noContent().build();
     }
 
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Product> update (@PathVariable Long id, @RequestBody Product product){
+        product = service.update(id, product);
+        return ResponseEntity.ok().body(product);
+    }
+
 }

@@ -29,4 +29,15 @@ public class CategoryService {
     public void delete(Long id){
         repository.deleteById(id);
     }
+
+    public Category update(Long id, Category category){
+        Category reference = repository.getReferenceById(id);
+        updateData(reference, category);
+        return repository.save(reference);
+    }
+
+    //Auxiliary methods
+    private void updateData(Category reference, Category category){
+        reference.setName(category.getName());
+    }
 }
