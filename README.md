@@ -16,7 +16,7 @@ The following tools have been used in the project:
 ---
 ### Project directions:
 
-<p>The direction to this project was to create a basic test environment with the H2 database to implement a CRUD (create, read, update and delete) application using the Spring Boot framework.</p>
+<p>The direction to this project was to create a basic test environment with a relational database (H2 in this case) to implement a simple rest API capable of realising CRUD (create, read, update, delete) operations.</p>
 
 
 #### Domain Model:
